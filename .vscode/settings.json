@@ -1,0 +1,19 @@
+{
+  "deno.enable": true,
+  "deno.config": "./deno.jsonc",
+  "deno.unstable": true,
+  "deno.importMap": "./import_map.json",
+  "deno.codeLens.test": true,
+  "deno.suggest.autoImports": true,
+  "deno.suggest.imports.autoDiscover": true,
+  "deno.suggest.names": true,
+  "deno.testing.args": [
+    "--allow-all",
+    "--no-check",
+    "--unstable"
+  ],
+  "files.watcherExclude": {
+    "**/target": true
+  },
+  "editor.snippetSuggestions": "bottom"
+}

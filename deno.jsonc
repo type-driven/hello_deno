@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window", "deno.unstable"],
+    "strict": true
+  },
+  "importMap": "./vendor/import_map.json",
+  "lint": {
+    "files": {
+      "include": ["*.ts, **/*.ts"],
+      "exclude": ["vendor"]
+    },
+    "rules": {
+      "tags": ["recommended"],
+      "include": [],
+      "exclude": ["no-unused-vars", "no-explicit-any", "no-empty-pattern"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["**/*"],
+      "exclude": ["vendor"]
+    }
+  },
+  "tasks": {
+    "build": "make build",
+    "format": "make format",
+    "lint": "make lint",
+    "install": "make deps",
+    "update": "make update"
+  }
+}

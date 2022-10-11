@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "ramda": "https://deno.land/x/ramda/mod.ts",
+    "ramda/": "https://deno.land/x/ramda/"
+  }
+}
