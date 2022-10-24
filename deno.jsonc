@@ -1,4 +1,9 @@
 {
+  "metadata": {
+    "minDenoVersion": "1.26",
+    "name": "hello_deno",
+    "version": "1.0.0"
+  },
   "compilerOptions": {
     "allowJs": true,
     "lib": ["deno.window", "deno.unstable"],
@@ -23,10 +28,10 @@
     }
   },
   "tasks": {
-    "build": "make build",
-    "format": "make format",
-    "lint": "make lint",
-    "install": "make deps",
-    "update": "make update"
+    "build": "just build",
+    "format": "just format",
+    "lint": "just lint",
+    "install": "just deps",
+    "update": "just update"
   }
 }

@@ -57,7 +57,7 @@ vendor:
 
 # Check for updates
 update: && deps
-	@udd {{source_files}} {{test_files}} {{bench_files}}
+	just udd "{{all_files}}"
 
 # Tasks
 
@@ -77,7 +77,7 @@ build-lib: cache
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
 build-npm $VERSION="1.0.0": cache
-	deno run {{dev_flags}} ./node/build_npm_package.ts {{VERSION}}
+	deno run {{dev_flags}} {{import_map}} ./node/build_npm_package.ts {{VERSION}}
 
 # locally cache (locked) dependencies
 cache:
