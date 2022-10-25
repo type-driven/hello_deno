@@ -76,6 +76,7 @@ build-lib: cache
 	deno bundle {{import_map}} ./src/mod.ts lib/index.js
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
+# @rcorreia FIXME: needs to check what is wrong in windows/wsl env.
 build-npm $VERSION="1.0.0": cache
 	deno run {{dev_flags}} {{import_map}} ./node/build_npm_package.ts {{VERSION}}
 
@@ -103,3 +104,6 @@ debug:
 # Publish the npm module from CI
 publish: build-npm
 	cd npm && npm publish
+
+run $ENTRYPOINT="src/main.ts":
+	deno run {{dev_flags}} {{ENTRYPOINT}}
