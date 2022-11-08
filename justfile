@@ -8,12 +8,12 @@ import_map := "--import-map .deno/import_map.json"
 dep_flags := "--lock .deno/lock.json --import-map .deno/import_map.json"
 
 docs := "examples/*.ts benchmark*.md **/*.md"
-bench_files := "./*_bench.ts"
+bench_files := "./bench/*.ts"
 node_files := "./node/*.ts"
-source_files := "./*.ts"
-test_files := "./*_test.ts"
+source_files := "./src/*.ts"
+test_files := "./test/*.ts"
 
-all_files := "./*.ts ./node/*.ts"
+all_files := "./bench/*.ts ./node/*.ts ./src/*.ts ./test/*.ts"
 
 deno_folder := ".deno/"
 
@@ -69,12 +69,12 @@ bench:
 
 # Build the bin
 build-bin: cache
-	deno compile {{prod_flags}} -o bin/hello_deno ./main.ts
+	deno compile {{prod_flags}} -o bin/hello_deno ./src/main.ts
 
 # Build the lib
 build-lib: cache
 	mkdir -p lib
-	deno bundle {{import_map}} mod.ts lib/index.js
+	deno bundle {{import_map}} src/mod.ts lib/index.js
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
 # @rcorreia FIXME: needs to check what is wrong in windows/wsl env.
@@ -96,11 +96,11 @@ lint:
 # run tests with coverage and doc-tests
 test: clean
 	deno test {{dev_flags}} --coverage=cov_profile {{test_files}}
-	deno test {{dev_flags}} --doc main.ts
+	deno test {{dev_flags}} --doc src/main.ts
 
 # Profiling
 debug:
-	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} main.ts
+	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} src/main.ts
 
 # Publish the npm module from CI
 publish: build-npm

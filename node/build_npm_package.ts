@@ -2,7 +2,7 @@ import { build, emptyDir } from "./deps.ts";
 
 await emptyDir("./npm");
 await build({
-  entryPoints: ["./mod.ts"],
+  entryPoints: ["./src/mod.ts"],
   outDir: "./npm",
   importMap: ".deno/import_map.json",
   typeCheck: false,
