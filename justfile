@@ -1,20 +1,21 @@
 # Dev flags, unstable apis enabled and every permission allowed.
-dev_flags := "--unstable -A -c deno.jsonc"
+dev_flags := "--unstable -A -c .deno/deno.jsonc"
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--check --cached-only --no-remote --import-map=vendor/import_map.json --lock lock.json"
+prod_flags := "--check --cached-only --no-remote --import-map=vendor/import_map.json --lock .deno/lock.json"
 
 # Dependency target flags
-lock_flags := "--lock lock.json"
-import_map := "--import-map ./import_map.json"
-dep_flags := "--lock lock.json --import-map ./import_map.json"
+import_map := "--import-map .deno/import_map.json"
+dep_flags := "--lock .deno/lock.json --import-map .deno/import_map.json"
 
 docs := "examples/*.ts benchmark*.md **/*.md"
-bench_files := "./bench/*.ts"
+bench_files := "./*_bench.ts"
 node_files := "./node/*.ts"
-source_files := "./src/*.ts"
-test_files := "./test/*.ts"
+source_files := "./*.ts"
+test_files := "./*_test.ts"
 
-all_files := "./bench/*.ts ./node/*.ts ./src/*.ts ./test/*.ts"
+all_files := "./*.ts ./node/*.ts"
+
+deno_folder := ".deno/"
 
 # Run all tasks. 
 default: chores && build
@@ -68,12 +69,12 @@ bench:
 
 # Build the bin
 build-bin: cache
-	deno compile {{prod_flags}} -o bin/hello_deno ./src/main.ts
+	deno compile {{prod_flags}} -o bin/hello_deno ./main.ts
 
 # Build the lib
 build-lib: cache
 	mkdir -p lib
-	deno bundle {{import_map}} ./src/mod.ts lib/index.js
+	deno bundle {{import_map}} mod.ts lib/index.js
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
 # @rcorreia FIXME: needs to check what is wrong in windows/wsl env.
@@ -82,7 +83,7 @@ build-npm $VERSION="1.0.0": cache
 
 # locally cache (locked) dependencies
 cache:
-	deno cache {{lock_flags}} {{all_files}}
+	deno cache {{dep_flags}} {{all_files}}
 
 # `deno fmt` docs and files
 format:
@@ -95,11 +96,11 @@ lint:
 # run tests with coverage and doc-tests
 test: clean
 	deno test {{dev_flags}} --coverage=cov_profile {{test_files}}
-	deno test {{dev_flags}} --doc src/main.ts
+	deno test {{dev_flags}} --doc main.ts
 
 # Profiling
 debug:
-	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} src/main.ts
+	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} main.ts
 
 # Publish the npm module from CI
 publish: build-npm

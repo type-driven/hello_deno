@@ -30,9 +30,9 @@ starting a new project in Deno land.
 ## Structure
 
 - `.vscode` [VSCode configuration for deno](.vscode/settings.json)
-- `bench` [`deno bench` example](bench/hello_bench.ts)
+- `bench` [`deno bench` example](hello_bench.ts)
 - `bin` [`deno compile` output](bin/hello_deno)
-- `test` [`deno test` example](test/hello_test.ts)
+- `test` [`deno test` example](hello_test.ts)
 - `vendor` [Vendored dependencies](vendor)
 - `build_npm_package.ts` [transforming for `npm` with `dnt`](build_npm_package.ts)
 - `deno.jsonc` [using `deno.jsonc` config file](deno.jsonc)

@@ -1,8 +1,8 @@
 {
   "deno.enable": true,
-  "deno.config": "./deno.jsonc",
+  "deno.config": ".deno/deno.jsonc",
   "deno.unstable": true,
-  "deno.importMap": "./import_map.json",
+  "deno.importMap": ".deno/import_map.json",
   "deno.codeLens.test": true,
   "deno.suggest.autoImports": true,
   "deno.suggest.imports.autoDiscover": true,

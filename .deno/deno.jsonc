@@ -9,7 +9,7 @@
     "lib": ["deno.window", "deno.unstable"],
     "strict": true
   },
-  "importMap": "./vendor/import_map.json",
+  "importMap": "../vendor/import_map.json",
   "lint": {
     "files": {
       "include": ["*.ts, **/*.ts"],
