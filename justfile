@@ -1,7 +1,7 @@
 # Dev flags, unstable apis enabled and every permission allowed.
 dev_flags := "--unstable -A -c .deno/deno.jsonc"
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--check --cached-only --no-remote --import-map=vendor/import_map.json --lock .deno/lock.json -c .deno/deno.jsonc"
+prod_flags := "--check --cached-only --no-remote --import-map=.deno/vendor/import_map.json --lock .deno/lock.json -c .deno/deno.jsonc"
 
 # Dependency target flags
 import_map := "--import-map .deno/import_map.json"
@@ -13,7 +13,7 @@ node_files := "./node/*.ts"
 source_files := "./*.ts"
 test_files := "./*_test.ts"
 
-all_files := "./*.ts ./node/*.ts"
+all_files := "./*.ts"
 
 # Run all tasks. 
 default: chores && build
@@ -45,14 +45,14 @@ lock:
 
 # Reload cache
 reload:
-	rm -rf vendor
+	rm -rf .deno/vendor
 	deno cache -r {{import_map}} {{all_files}}
 
 # Vendor the dependencies
 # Import map overridden as config sets the vendored import-map.
 # Obviously the vendoring can't depend on the import map it outputs.
 vendor: 
-	deno vendor {{dep_flags}} --force {{all_files}}
+	deno vendor {{dep_flags}} --force {{all_files}} --output .deno/vendor
 
 # Check for updates
 update: && deps
@@ -77,7 +77,7 @@ build-lib: cache
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
 # @rcorreia FIXME: needs to check what is wrong in windows/wsl env.
 build-npm $VERSION="1.0.0": cache
-	deno run {{dev_flags}} {{dep_flags}} ./node/build_npm_package.ts {{VERSION}}
+	deno run {{dev_flags}} {{dep_flags}} .deno/build_npm_package.ts {{VERSION}}
 
 # locally cache (locked) dependencies
 cache:
@@ -104,5 +104,5 @@ debug:
 publish: build-npm
 	cd npm && npm publish
 
-run $ENTRYPOINT="src/main.ts":
+run $ENTRYPOINT="main.ts":
 	deno run {{dev_flags}} {{ENTRYPOINT}}
