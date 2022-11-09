@@ -29,14 +29,18 @@ starting a new project in Deno land.
 
 ## Structure
 
-- `.vscode` [VSCode configuration for deno](.vscode/settings.json)
+- `.deno` [All deno related configuration](.deno/)
+	- `deno.jsonc` [using `deno.jsonc` config file](.deno/deno.jsonc)
+	- `import_map.json` [using `import_map.json`](.deno/import_map.json)
+	- `lock.json` [lockfile](.deno/lock.json)
+- `.vscode` [VSCode configurations](.vscode/)
+	- `extensions.json` [VSCode extensions](.vscode/extensions.json)
+	- `settings.json` [VSCode settings](.vscode/settings.json)
 - `bench` [`deno bench` example](hello_bench.ts)
 - `bin` [`deno compile` output](bin/hello_deno)
 - `test` [`deno test` example](hello_test.ts)
 - `vendor` [Vendored dependencies](vendor)
-- `build_npm_package.ts` [transforming for `npm` with `dnt`](build_npm_package.ts)
-- `deno.jsonc` [using `deno.jsonc` config file](deno.jsonc)
-- `import_map.json` [using `import_map.json`](import_map.json)
+- `build_npm_package.ts` [transforming for `npm` with `dnt`](node/build_npm_package.ts)
 - `LICENCE` [default MIT licence](LICENCE)
 - `main.ts` [compilation entry-point `main.ts`](main.ts)
 - `mod.ts` [library entry point `mod.ts`](mod.ts)
@@ -55,42 +59,41 @@ starting a new project in Deno land.
 #### `dev_flags`
 
 ```make
-dev_flags = --unstable -A
+dev_flags = --unstable -A -c .deno/deno.jsonc
 ```
 
-> Default run flags. Enabling Deno Unstable APIs and allowing All Permissions.
+Default run flags: 
+- Enabling Deno Unstable APIs 
+- allowing All Permissions.
+- Setting Deno Conifg path
 
 #### `prod_flags`
 ```make
-prod_flags =
+prod_flags = --check --cached-only --no-remote --import-map=vendor/import_map.json --lock .deno/lock.json
 ```
 
-> Empty by default, add only NEEDED permissions here!
-
-#### `lock_flags`
-
-```make
-lock_flags = --lock lock.json
-```
+Production flags:
+- always type-check (tsc)
+- use only cached deps
+- no remote dependencies allowed
+- point to vendored import-map always
+- validate dependencies against lock file
 
 > Locking settings, defining the lock file.
 
 #### `dep_flags`
 
 ```make
-dep_flags = --import-map ./import_map.json $(lock_flags)
+dep_flags = --import-map .deno/import_map.json --lock .deno/lock.json
 ```
 
-> Dependency settings, to resolve packages from import-ma and pin dependencies
-> with lock file.
-
-#### `docs`
-
-> Path of documentation artifacts, (e.g. `examples/*.ts benchmark*.md **/*.md`)
+Dependency flags:
+- use import map to resolve dependencies
+- use/write lock file to `.deno/lock.json`
 
 #### `test_files`
 
-> Path to test files (e.g. `./test/*_test.ts`)
+> Path to test files (e.g. `./*_test.ts`)
 
 #### `source_files`
 
@@ -99,7 +102,7 @@ dep_flags = --import-map ./import_map.json $(lock_flags)
 #### `all_files`
 
 ```make
-all_files = $(source_files) $(test_files)
+all_files = "./*.ts ./node/*.ts"
 ```
 
 > Source + Test files.
@@ -114,13 +117,14 @@ udd = deno run -A https://deno.land/x/udd@0.7.3/main.ts
 
 ### Most important commands
 
-- `make chores`: Update dependencies, write lock file, reload cache, vendor
+- `just chores`: Update dependencies, write lock file, reload cache, vendor
   dependencies and load them into cache.
-- `make build`: Build `bin` and `npm` package.
+- `just build`: Build `bin`, `lib` and `npm` package.
+- `just`: chores && build
 
 ### Dependencies
 
-Modules are
+Modules are typically registered in the import-map.
 
 #### Check for updates
 

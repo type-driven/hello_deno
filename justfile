@@ -1,7 +1,7 @@
 # Dev flags, unstable apis enabled and every permission allowed.
 dev_flags := "--unstable -A -c .deno/deno.jsonc"
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--check --cached-only --no-remote --import-map=vendor/import_map.json --lock .deno/lock.json"
+prod_flags := "--check --cached-only --no-remote --import-map=vendor/import_map.json --lock .deno/lock.json -c .deno/deno.jsonc"
 
 # Dependency target flags
 import_map := "--import-map .deno/import_map.json"
@@ -14,8 +14,6 @@ source_files := "./*.ts"
 test_files := "./*_test.ts"
 
 all_files := "./*.ts ./node/*.ts"
-
-deno_folder := ".deno/"
 
 # Run all tasks. 
 default: chores && build
