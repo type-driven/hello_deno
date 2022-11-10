@@ -1,100 +1,58 @@
+#
+# Variables                                                                 
+#
+
 # Dev flags, unstable apis enabled and every permission allowed.
-dev_flags := "--unstable -A -c .deno/deno.jsonc"
+dev_flags := "--unstable -A"
+
 # Should write strict --allow-xxx flags here for your prod build
 prod_flags := "--check --cached-only --no-remote --import-map=.deno/vendor/import_map.json --lock .deno/lock.json -c .deno/deno.jsonc"
 
-# Dependency target flags
+# Import map for dependencies
 import_map := "--import-map .deno/import_map.json"
-dep_flags := "--lock .deno/lock.json --import-map .deno/import_map.json"
 
-docs := "examples/*.ts benchmark*.md **/*.md"
-bench_files := "./*_bench.ts"
-node_files := "./node/*.ts"
+# Set config path, use locked dependencies, override import map (config used vendored import-map)
+dep_flags := "-c .deno/deno.jsonc --lock .deno/lock.json --import-map .deno/import_map.json"
+
+# Examples docs and such
+doc_files := "examples/*.ts **/*.md"
+
+# Source files
 source_files := "./*.ts"
+
+# Test Files
 test_files := "./*_test.ts"
 
+# All files
 all_files := "./*.ts"
 
-# Run all tasks. 
-default: chores && build
+# Default action shows help
+default: 
+	just --list
 
-# update deps (+ lock, cahce, vendor), lint and format all files, run tests and benchmarks
-chores: update lint format test bench
-
-# build binary, bundle, node module
-build: build-bin build-lib build-npm
-
-# Update dependencies to latest versions.
-udd paths:
-	deno run -A https://deno.land/x/udd@0.7.3/main.ts {{paths}}
-
-# Build release
-
-# Clean before build
-clean:
-	rm -rf bin cov_profile lib npm
-
-# Essentially npm install --lock
-deps: reload lock vendor cache
-
-# Dependencies
-
-# Lock when you add new dependencies
-lock:
-	deno cache {{dep_flags}} --lock-write {{all_files}}
-
-# Reload cache
-reload:
-	rm -rf .deno/vendor
-	deno cache -r {{import_map}} {{all_files}}
-
-# Vendor the dependencies
-# Import map overridden as config sets the vendored import-map.
-# Obviously the vendoring can't depend on the import map it outputs.
-vendor: 
-	deno vendor {{dep_flags}} --force {{all_files}} --output .deno/vendor
-
-# Check for updates
-update: && deps
-	just udd "{{all_files}}"
-
+#
 # Tasks
+#
+
+# Run all tasks (chores && build)
+all: chores && build
 
 # Run the benchmark(s)
-# Benchamrks end in `_bench.ts`
 bench:
-	deno bench {{dev_flags}}
-
-# Build the bin
-build-bin: cache
-	deno compile {{prod_flags}} -o bin/hello_deno ./main.ts
-
-# Build the lib
-build-lib: cache
-	mkdir -p lib
-	deno bundle {{dep_flags}} mod.ts lib/index.js
+	deno bench {{dev_flags}} {{dep_flags}}
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
-# @rcorreia FIXME: needs to check what is wrong in windows/wsl env.
-build-npm $VERSION="1.0.0": cache
+build-npm $VERSION="1.0.0": _cache
 	deno run {{dev_flags}} {{dep_flags}} .deno/build_npm_package.ts {{VERSION}}
 
-# locally cache (locked) dependencies
-cache:
-	deno cache {{dep_flags}} {{all_files}}
+# build binary, bundle, node module
+build: _build-bin _build-lib build-npm
 
-# `deno fmt` docs and files
-format:
-	deno fmt {{all_files}} {{docs}}
+# update deps (+ lock, cahce, vendor), lint and format all files, run tests and benchmarks
+chores: update _lint _format test bench
 
-# `deno lint` all files
-lint:
-	deno lint {{all_files}}
-
-# run tests with coverage and doc-tests
-test: clean
-	deno test {{dev_flags}} --coverage=cov_profile {{test_files}}
-	deno test {{dev_flags}} --doc main.ts
+# Essentially npm install --lock
+deps: _reload _lock _vendor _cache
 
 # Profiling
 debug:
@@ -104,5 +62,61 @@ debug:
 publish: build-npm
 	cd npm && npm publish
 
+# Run a script locally in dev mode
 run $ENTRYPOINT="main.ts":
 	deno run {{dev_flags}} {{ENTRYPOINT}}
+
+# run tests with coverage and doc-tests
+test: _clean
+	deno test {{dev_flags}} {{dep_flags}} --coverage=cov_profile {{test_files}}
+	deno test {{dev_flags}} {{dep_flags}} --doc main.ts
+
+# Check for updates
+update: && deps
+	just _udd "{{all_files}} {{import_map}}"
+
+#
+# Helper tasks
+#
+
+# Build the bin
+_build-bin: _cache
+	deno compile {{prod_flags}} -o bin/hello_deno ./main.ts
+
+# Build the lib
+_build-lib: _cache
+	mkdir -p lib
+	deno bundle {{dep_flags}} mod.ts lib/index.js
+
+# locally cache (locked) dependencies
+_cache:
+	deno cache {{dep_flags}} {{all_files}}
+
+# Clean before build
+_clean:
+	rm -rf bin cov_profile lib npm
+
+# `deno fmt` docs and files
+_format:
+	deno fmt {{all_files}} {{doc_files}}
+
+# `deno lint` all files
+_lint:
+	deno lint {{all_files}}
+
+# Lock when you add new dependencies
+_lock:
+	deno cache {{import_map}} --lock-write {{all_files}}
+
+# Reload cache
+_reload:
+	deno cache -r {{import_map}} {{all_files}}
+
+# Update dependencies to latest versions.
+_udd paths:
+	deno run {{dev_flags}} https://deno.land/x/udd@0.7.3/main.ts {{paths}}
+
+# Vendor the dependencies
+_vendor:
+	rm -rf .deno/vendor 
+	deno vendor {{dep_flags}} --force {{all_files}} --output .deno/vendor
