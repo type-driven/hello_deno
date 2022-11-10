@@ -3,6 +3,7 @@
   "deno.lint": true,
   "deno.unstable": true,
   "deno.importMap": ".deno/import_map.json",
+  "deno.config": ".deno/deno.json",
   "deno.codeLens.test": true,
   "editor.snippetSuggestions": "bottom"
 }
