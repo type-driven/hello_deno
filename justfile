@@ -8,9 +8,6 @@ dev_flags := "--unstable -A"
 # Should write strict --allow-xxx flags here for your prod build
 prod_flags := "--check --cached-only --no-remote --import-map=./vendor/import_map.json --lock ./lock.json -c ./deno.jsonc"
 
-# Import map for dependencies
-import_map := "--import-map ./import_map.json"
-
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
 dep_flags := "-c ./deno.jsonc --lock ./lock.json --import-map ./import_map.json"
 
@@ -73,7 +70,7 @@ test: _clean
 
 # Check for updates
 update: && deps
-	just _udd "{{all_files}} {{import_map}}"
+	just _udd "{{all_files}} import_map.json"
 
 #
 # Helper tasks
@@ -106,11 +103,11 @@ _lint:
 
 # Lock when you add new dependencies
 _lock:
-	deno cache {{import_map}} --lock-write {{all_files}}
+	deno cache {{dep_flags}} --lock-write {{all_files}}
 
 # Reload cache
 _reload:
-	deno cache -r {{import_map}} {{all_files}}
+	deno cache -r {{dep_flags}} {{all_files}}
 
 # Update dependencies to latest versions.
 _udd paths:
