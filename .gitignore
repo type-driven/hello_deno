@@ -2,4 +2,3 @@ bin
 cov_profile
 lib
 npm
-.deno/vendor

@@ -29,11 +29,11 @@ starting a new project in Deno land.
 
 ## Structure
 
-- `.deno/` [All deno related configuration](.deno/)
-	- `build_npm_package.ts` [transforming for `npm` with `dnt`](.deno/build_npm_package.ts)
-	- `deno.jsonc` [using `deno.jsonc` config file](.deno/deno.jsonc)
-	- `import_map.json` [using `import_map.json`](.deno/import_map.json)
-	- `lock.json` [lockfile](.deno/lock.json)
+- `./` [All deno related configuration](./)
+	- `build_npm_package.ts` [transforming for `npm` with `dnt`](./build_npm_package.ts)
+	- `deno.jsonc` [using `deno.jsonc` config file](./deno.jsonc)
+	- `import_map.json` [using `import_map.json`](./import_map.json)
+	- `lock.json` [lockfile](./lock.json)
 	- `vendor` [Vendored dependencies](vendor)
 - `.vscode` [VSCode configurations](.vscode/)
 	- `extensions.json` [VSCode extensions](.vscode/extensions.json)
@@ -60,7 +60,7 @@ starting a new project in Deno land.
 #### `dev_flags`
 
 ```make
-dev_flags = --unstable -A -c .deno/deno.jsonc
+dev_flags = --unstable -A -c ./deno.jsonc
 ```
 
 Default run flags: 
@@ -70,7 +70,7 @@ Default run flags:
 
 #### `prod_flags`
 ```make
-prod_flags = --check --cached-only --no-remote --import-map=vendor/import_map.json --lock .deno/lock.json
+prod_flags = --check --cached-only --no-remote --import-map=vendor/import_map.json --lock ./lock.json
 ```
 
 Production flags:
@@ -85,12 +85,12 @@ Production flags:
 #### `dep_flags`
 
 ```make
-dep_flags = --import-map .deno/import_map.json --lock .deno/lock.json
+dep_flags = --import-map ./import_map.json --lock ./lock.json
 ```
 
 Dependency flags:
 - use import map to resolve dependencies
-- use/write lock file to `.deno/lock.json`
+- use/write lock file to `./lock.json`
 
 #### `test_files`
 
