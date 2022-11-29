@@ -18,17 +18,28 @@ starting a new project in Deno land.
 - Executable entry point (main.ts)
 - Library entry points (mod.ts)
 
-
 ## Requirements
 
-- [Deno](https://deno.land/manual/getting_started/installation) `brew install deno`
-- [VSCode Deno Extension](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno) `code --install-extension denoland.vscode-deno`
-- [Just](https://github.com/casey/just) `brew install just`
+- [Deno](https://deno.land/manual/getting_started/installation)
+- [VSCode Deno Extension](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno) 
+- [Just](https://github.com/casey/just)
 
+## Install guide
+### Deno VSCode Extension
+```sh
+code --install-extension denoland.vscode-deno
+```
+Manual 
 > https://deno.land/manual/vscode_deno
 
-## Structure
+### Deno
+Refer to [deno manual installation](https://deno.land/manual@v1.28.2/getting_started/installation)
 
+### Just
+Refer to [just packages installation](https://github.com/casey/just#packages)
+
+Note: Windows users, please use `git-bash` to interact with `just`
+## Structure
 - `./` [All deno related configuration](./)
 	- `build_npm_package.ts` [transforming for `npm` with `dnt`](./build_npm_package.ts)
 	- `deno.jsonc` [using `deno.jsonc` config file](./deno.jsonc)
@@ -50,9 +61,9 @@ starting a new project in Deno land.
 
 ### Dependencies and Tasks
 
-> Tasks can be considered the equivalent of `npm` scripts While deno exposes
-> `deno task` command it's not ideal to write your tasks in the `deno.json`
-> config, therefore the author's best current advice is just using a `makefile`.
+> Tasks can be considered the equivalent of `npm` scripts. Deno counterpart exposes
+ `deno task` command, and it's not ideal to write your tasks in `deno.json` config.
+Therefore the author's best current advice is just using a `makefile`.
 > The sections are organized into Chores and Tasks.
 
 ### Configuration
@@ -189,7 +200,7 @@ cache:
 
 ### Run the benchmark(s)
 
-### Benchamrks end in `_bench.ts`
+### Benchmarks end in `_bench.ts`
 
 ```make
 bench: clean
