@@ -5,6 +5,10 @@ An opinionated deno project starter template.
 This template provides examples and a batteries included experience for
 starting a new project in Deno land.
 
+>```shell
+>$ just all
+>```
+
 ## Features
 - Sane VSCode defaults for deno
 - Benchmarking example
@@ -34,22 +38,20 @@ Manual
 
 ### Deno
 Refer to [deno manual installation](https://deno.land/manual@v1.28.2/getting_started/installation)
-
 ### Just
 Refer to [just packages installation](https://github.com/casey/just#packages)
 
 Note: Windows users, please use `git-bash` to interact with `just`
 ## Structure
-- `./` [All deno related configuration](./)
+- `.vscode` [VSCode configurations](.vscode/)
+	- `extensions.json` [VSCode extensions](.vscode/extensions.json)
+	- `settings.json` [VSCode settings](.vscode/settings.json)
+- `bin/` [`deno compile` output](bin/hello_deno)
 	- `build_npm_package.ts` [transforming for `npm` with `dnt`](./build_npm_package.ts)
 	- `deno.jsonc` [using `deno.jsonc` config file](./deno.jsonc)
 	- `import_map.json` [using `import_map.json`](./import_map.json)
 	- `lock.json` [lockfile](./lock.json)
 	- `vendor` [Vendored dependencies](vendor)
-- `.vscode` [VSCode configurations](.vscode/)
-	- `extensions.json` [VSCode extensions](.vscode/extensions.json)
-	- `settings.json` [VSCode settings](.vscode/settings.json)
-- `bin/` [`deno compile` output](bin/hello_deno)
 - `hello_bench.ts` [`deno bench` example](hello_bench.ts)
 - `hello_test.ts` [`deno test` example](hello_test.ts)
 - `justfile` [Justfile for running tasks](justfile)
