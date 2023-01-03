@@ -6,10 +6,10 @@
 dev_flags := "--unstable -A"
 
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--check --cached-only --no-remote --import-map=./vendor/import_map.json --lock ./lock.json -c ./deno.jsonc"
+prod_flags := "--check --cached-only --no-remote --import-map=./vendor/import_map.json --lock ./lock.json -c ./deno.json"
 
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
-dep_flags := "-c ./deno.jsonc --lock ./lock.json --import-map ./import_map.json"
+dep_flags := "-c ./deno.json --lock ./lock.json --import-map ./import_map.json"
 
 # Examples docs and such
 doc_files := "examples/*.ts **/*.md"

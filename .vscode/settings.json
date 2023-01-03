@@ -1,9 +1,5 @@
 {
   "deno.enable": true,
-  "deno.lint": true,
-  "deno.unstable": true,
   "deno.importMap": "./import_map.json",
-  "deno.config": "./deno.jsonc",
-  "deno.codeLens.test": true,
   "editor.snippetSuggestions": "bottom"
 }
