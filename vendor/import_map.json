@@ -1,7 +1,7 @@
 {
   "imports": {
     "ramda": "./deno.land/x/ramda@v0.27.2/mod.ts",
-    "std/testing/asserts.ts": "./deno.land/std@0.170.0/testing/asserts.ts",
+    "std/testing/asserts.ts": "./deno.land/std@0.173.0/testing/asserts.ts",
     "https://deno.land/": "./deno.land/"
   }
 }
