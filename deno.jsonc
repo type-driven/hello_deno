@@ -1,0 +1,16 @@
+{
+  // Metadata block is not deno specific, but rather we use it for versioning and CI/CD
+  "metadata": {
+    "minDenoVersion": "1.29",
+    "name": "hello_deno",
+    "version": "1.0.0"
+  },
+  "importMap": "./vendor/import_map.json",
+  "lint": {
+    "files": {
+      "include": ["**/*"],
+      "exclude": ["vendor/*"]
+    }
+  },
+  "lock": true
+}

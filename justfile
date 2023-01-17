@@ -3,13 +3,13 @@
 #
 
 # Dev flags, unstable apis enabled and every permission allowed.
-dev_flags := "--unstable -A"
+dev_flags := "--unstable --allow-all"
 
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--check --cached-only --no-remote --import-map=./vendor/import_map.json --lock ./lock.json -c ./deno.json"
+prod_flags := "--no-remote --import-map=./vendor/import_map.json --lock ./lock.json --config ./deno.jsonc"
 
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
-dep_flags := "-c ./deno.json --lock ./lock.json --import-map ./import_map.json"
+dep_flags := "--config ./deno.jsonc --lock ./lock.json --import-map ./import_map.json"
 
 # Examples docs and such
 doc_files := "examples/*.ts **/*.md"
@@ -38,12 +38,11 @@ all: chores && build
 bench:
 	deno bench {{dev_flags}} {{dep_flags}}
 
-# Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
-build-npm $VERSION="1.0.0": _cache
-	deno run {{dev_flags}} {{dep_flags}} ./build_npm_package.ts {{VERSION}}
-
 # build binary, bundle, node module
-build: _build-bin _build-lib build-npm
+build: _build-bin _build-lib _build-npm
+
+# Run CI/CD Related tasks only
+ci: _check test bench build publish
 
 # update deps (+ lock, cahce, vendor), lint and format all files, run tests and benchmarks
 chores: update _lint _format test bench
@@ -56,7 +55,7 @@ debug:
 	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} main.ts
 
 # Publish the npm module from CI
-publish: build-npm
+publish: _build-npm
 	cd npm && npm publish
 
 # Run a script locally in dev mode
@@ -65,8 +64,7 @@ run $ENTRYPOINT="main.ts":
 
 # run tests with coverage and doc-tests
 test: _clean
-	deno test {{dev_flags}} {{dep_flags}} --coverage=cov_profile {{test_files}}
-	deno test {{dev_flags}} {{dep_flags}} --doc main.ts
+	deno test {{dev_flags}} {{dep_flags}} --doc --coverage=cov_profile {{test_files}}
 
 # Check for updates
 update: && deps
@@ -85,9 +83,18 @@ _build-lib: _cache
 	mkdir -p lib
 	deno bundle {{dep_flags}} mod.ts lib/index.js
 
+# Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
+_build-npm $VERSION="1.0.0": _cache
+	deno run {{dev_flags}} {{dep_flags}} ./build_npm_package.ts {{VERSION}}
+
 # locally cache (locked) dependencies
 _cache:
-	deno cache {{dep_flags}} {{all_files}}
+	deno cache {{prod_flags}} {{all_files}}
+
+# Run checks
+_check:
+	deno check {{dep_flags}} {{all_files}}
+	deno fmt --check {{all_files}} {{doc_files}}
 
 # Clean before build
 _clean:
