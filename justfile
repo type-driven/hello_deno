@@ -83,7 +83,7 @@ _build-bin: _cache
 # Build the lib
 _build-lib: _cache
 	mkdir -p lib
-	deno bundle {{dep_flags}} mod.ts lib/index.js
+	deno bundle {{prod_flags}} mod.ts lib/index.js
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
 _build-npm $VERSION="1.0.0": _cache
