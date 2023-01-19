@@ -42,7 +42,9 @@ bench:
 build: _build-bin _build-lib _build-npm
 
 # Run CI/CD Related tasks only
-ci: _check test bench build publish
+ci: _check test bench build
+
+cd: build && release
 
 # update deps (+ lock, cahce, vendor), lint and format all files, run tests and benchmarks
 chores: update _lint _format test bench
@@ -55,7 +57,7 @@ debug:
 	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} main.ts
 
 # Publish the npm module from CI
-publish: _build-npm
+release:
 	cd npm && npm publish
 
 # Run a script locally in dev mode
