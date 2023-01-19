@@ -1,5 +1,6 @@
 {
   "imports": {
+    "dnt": "./deno.land/x/dnt@0.33.0/mod.ts",
     "std/testing/asserts.ts": "./deno.land/std@0.173.0/testing/asserts.ts",
     "https://deno.land/": "./deno.land/"
   }
