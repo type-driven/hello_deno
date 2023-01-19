@@ -12,13 +12,7 @@ await build({
     // see JS docs for overview and more options
     deno: true,
   },
-  mappings: {
-    // ramda
-    "https://deno.land/x/ramda@v0.27.2/mod.ts": {
-      name: "ramda",
-      version: "0.28.0",
-    },
-  },
+  mappings: {},
   package: {
     // package.json properties
     name: "hello-deno",
