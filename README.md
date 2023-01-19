@@ -2,14 +2,15 @@
 
 An opinionated deno project starter template.
 
-This template provides examples and a batteries included experience for
-starting a new project in Deno land.
+This template provides examples and a batteries included experience for starting
+a new project in Deno land.
 
->```shell
->$ just all
->```
+> ```shell
+> $ just all
+> ```
 
 ## Features
+
 - Sane VSCode defaults for deno
 - Benchmarking example
 - Compiled executable example
@@ -17,7 +18,7 @@ starting a new project in Deno land.
 - Vendoring capabilities
 - NPM Compatibility
 - Deno confiugration
-- Import Map usage example 
+- Import Map usage example
 - Standard MIT Licence
 - Executable entry point (main.ts)
 - Library entry points (mod.ts)
@@ -25,33 +26,44 @@ starting a new project in Deno land.
 ## Requirements
 
 - [Deno](https://deno.land/manual/getting_started/installation)
-- [VSCode Deno Extension](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno) 
+- [VSCode Deno Extension](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno)
 - [Just](https://github.com/casey/just)
 
 ## Install guide
+
 ### Deno VSCode Extension
+
 ```sh
 code --install-extension denoland.vscode-deno
 ```
-Manual 
+
+Manual
+
 > https://deno.land/manual/vscode_deno
 
 ### Deno
-Refer to [deno manual installation](https://deno.land/manual@v1.28.2/getting_started/installation)
+
+Refer to
+[deno manual installation](https://deno.land/manual@v1.28.2/getting_started/installation)
+
 ### Just
+
 Refer to [just packages installation](https://github.com/casey/just#packages)
 
 Note: Windows users, please use `git-bash` to interact with `just`
+
 ## Structure
+
 - `.vscode` [VSCode configurations](.vscode/)
-	- `extensions.json` [VSCode extensions](.vscode/extensions.json)
-	- `settings.json` [VSCode settings](.vscode/settings.json)
+  - `extensions.json` [VSCode extensions](.vscode/extensions.json)
+  - `settings.json` [VSCode settings](.vscode/settings.json)
 - `bin/` [`deno compile` output](bin/hello_deno)
-	- `build_npm_package.ts` [transforming for `npm` with `dnt`](./build_npm_package.ts)
-	- `deno.jsonc` [using `deno.jsonc` config file](./deno.jsonc)
-	- `import_map.json` [using `import_map.json`](./import_map.json)
-	- `lock.json` [lockfile](./lock.json)
-	- `vendor` [Vendored dependencies](vendor)
+  - `build_npm_package.ts`
+    [transforming for `npm` with `dnt`](./build_npm_package.ts)
+  - `deno.jsonc` [using `deno.jsonc` config file](./deno.jsonc)
+  - `import_map.json` [using `import_map.json`](./import_map.json)
+  - `lock.json` [lockfile](./lock.json)
+  - `vendor` [Vendored dependencies](vendor)
 - `hello_bench.ts` [`deno bench` example](hello_bench.ts)
 - `hello_test.ts` [`deno test` example](hello_test.ts)
 - `justfile` [Justfile for running tasks](justfile)
@@ -63,10 +75,10 @@ Note: Windows users, please use `git-bash` to interact with `just`
 
 ### Dependencies and Tasks
 
-> Tasks can be considered the equivalent of `npm` scripts. Deno counterpart exposes
- `deno task` command, and it's not ideal to write your tasks in `deno.json` config.
-Therefore the author's best current advice is just using a `makefile`.
-> The sections are organized into Chores and Tasks.
+> Tasks can be considered the equivalent of `npm` scripts. Deno counterpart
+> exposes `deno task` command, and it's not ideal to write your tasks in
+> `deno.json` config. Therefore the author's best current advice is just using a
+> `makefile`. The sections are organized into Chores and Tasks.
 
 ### Configuration
 
@@ -76,17 +88,20 @@ Therefore the author's best current advice is just using a `makefile`.
 dev_flags = --unstable -A -c ./deno.jsonc
 ```
 
-Default run flags: 
-- Enabling Deno Unstable APIs 
+Default run flags:
+
+- Enabling Deno Unstable APIs
 - allowing All Permissions.
 - Setting Deno Conifg path
 
 #### `prod_flags`
+
 ```make
 prod_flags = --check --cached-only --no-remote --import-map=vendor/import_map.json --lock ./lock.json
 ```
 
 Production flags:
+
 - always type-check (tsc)
 - use only cached deps
 - no remote dependencies allowed
@@ -102,6 +117,7 @@ dep_flags = --import-map ./import_map.json --lock ./lock.json
 ```
 
 Dependency flags:
+
 - use import map to resolve dependencies
 - use/write lock file to `./lock.json`
 

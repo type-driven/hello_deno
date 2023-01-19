@@ -1,4 +1,4 @@
-bin
-cov_profile
-lib
-npm
+/bin
+/cov_profile
+/lib
+/npm
