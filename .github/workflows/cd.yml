@@ -21,6 +21,9 @@ jobs:
   cd:
     runs-on: ubuntu-latest
 
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
     steps:
       - name: Setup repo
         uses: actions/checkout@v3
