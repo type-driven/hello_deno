@@ -1,6 +1,7 @@
 {
   "imports": {
-    "dnt": "https://deno.land/x/dnt@0.33.0/mod.ts",
+    "ramda": "https://deno.land/x/ramda@v0.27.2/mod.ts",
+    "ramda/": "https://deno.land/x/ramda@v0.27.2/",
     "std/": "https://deno.land/std@0.173.0/"
   }
 }

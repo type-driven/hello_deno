@@ -1,3 +1,5 @@
+import { toUpper } from "ramda";
+
 export function hello_deno() {
-  return "Hello deno!".toUpperCase();
+  return toUpper("Hello deno!");
 }

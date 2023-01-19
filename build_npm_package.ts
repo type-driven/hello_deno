@@ -1,4 +1,4 @@
-import { build, emptyDir } from "dnt";
+import { build, emptyDir } from "https://deno.land/x/dnt@0.33.0/mod.ts";
 
 await emptyDir("./npm");
 await build({
@@ -12,7 +12,13 @@ await build({
     // see JS docs for overview and more options
     deno: true,
   },
-  mappings: {},
+  mappings: {
+    // ramda
+    "https://deno.land/x/ramda@v0.27.2/mod.ts": {
+      name: "ramda",
+      version: "0.28.0",
+    },
+  },
   package: {
     // package.json properties
     name: "hello-deno",
