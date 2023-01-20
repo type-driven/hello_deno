@@ -6,7 +6,7 @@
 dev_flags := "--unstable --allow-all"
 
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--no-remote --import-map=./vendor/import_map.json --lock ./lock.json --config ./deno.jsonc"
+prod_flags := "--config ./deno.jsonc --lock ./lock.json --no-remote --import-map=./vendor/import_map.json"
 
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
 dep_flags := "--config ./deno.jsonc --lock ./lock.json --import-map ./import_map.json"
@@ -27,6 +27,8 @@ all_files := "./*.ts"
 default: 
 	just --list
 
+VERSION := env_var('VERSION')
+
 #
 # Tasks
 #
@@ -44,7 +46,7 @@ build: _build-bin _build-lib _build-npm
 # Run CI/CD Related tasks only
 ci: _check test bench build
 
-cd: build && release
+cd: build && _publish-npm
 
 # update deps (+ lock, cahce, vendor), lint and format all files, run tests and benchmarks
 chores: update _lint _format test bench
@@ -55,10 +57,6 @@ deps: _reload _lock _vendor _cache
 # Profiling
 debug:
 	deno run --v8-flags=--prof --inspect-brk {{dev_flags}} main.ts
-
-# Publish the npm module from CI
-release:
-	cd npm && npm publish
 
 # Run a script locally in dev mode
 run $ENTRYPOINT="main.ts":
@@ -86,8 +84,8 @@ _build-lib: _cache
 	deno bundle {{prod_flags}} mod.ts lib/index.js
 
 # Build the npm module VERSION needs to be set e.g. export VERSION=v1.0.0
-_build-npm $VERSION="1.0.0": _cache
-	deno run {{dev_flags}} {{dep_flags}} ./build_npm_package.ts {{VERSION}}
+_build-npm: _cache
+	deno run --allow-all {{prod_flags}} ./build_npm_package.ts {{VERSION}}
 
 # locally cache (locked) dependencies
 _cache:
@@ -95,7 +93,7 @@ _cache:
 
 # Run checks
 _check:
-	deno check {{dep_flags}} {{all_files}}
+	deno check {{prod_flags}} {{all_files}}
 	deno fmt --check {{all_files}} {{doc_files}}
 
 # Clean before build
@@ -113,6 +111,10 @@ _lint:
 # Lock when you add new dependencies
 _lock:
 	deno cache {{dep_flags}} --lock-write {{all_files}}
+
+# Publish the npm module from CI
+_publish-npm:
+	cd npm && npm publish
 
 # Reload cache
 _reload:
