@@ -22,7 +22,7 @@ jobs:
 
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      VERSION: ${{ github.ref }}
+      VERSION: ${{ github.ref_name }}
 
     steps:
       - name: Setup repo
