@@ -21,6 +21,9 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
+    env:
+      VERSION: ${{ github.GITHUB_REF_NAME }}
+
     steps:
       - name: Setup repo
         uses: actions/checkout@v3
