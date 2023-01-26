@@ -4,20 +4,13 @@ await emptyDir("./npm");
 await build({
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
-  importMap: "./import_map.json",
+  importMap: "./vendor/import_map.json",
   typeCheck: false,
   skipSourceOutput: true,
   test: true,
   shims: {
     // see JS docs for overview and more options
     deno: true,
-  },
-  mappings: {
-    // ramda
-    "https://deno.land/x/ramda@v0.27.2/mod.ts": {
-      name: "ramda",
-      version: "0.28.0",
-    },
   },
   package: {
     // package.json properties
