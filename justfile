@@ -9,7 +9,7 @@ dev_flags := "--unstable --allow-all"
 prod_flags := "--config ./deno.jsonc --lock ./lock.json --no-remote --import-map=./vendor/import_map.json"
 
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
-dep_flags := "--config ./deno.jsonc --lock ./lock.json --import-map ./import_map.json"
+dep_flags := "--config ./deno.jsonc --lock ./lock.json"
 
 # Examples docs and such
 doc_files := "examples/*.ts **/*.md"
@@ -21,7 +21,7 @@ source_files := "./*.ts"
 test_files := "./*_test.ts"
 
 # All files
-all_files := "./*.ts"
+all_files := "./*.ts ./scripts/*.ts"
 
 # Default action shows help (remove to make `just` run all by default)
 default: 
@@ -58,7 +58,7 @@ debug:
 
 # Run a script locally in dev mode
 run $ENTRYPOINT="main.ts" $ARGS="":
-	deno run {{dev_flags}} {{ENTRYPOINT}} {{ARGS}}
+	deno run --allow-all {{prod_flags}} {{ENTRYPOINT}} {{ARGS}}
 
 # run tests with coverage and doc-tests
 test: _clean
