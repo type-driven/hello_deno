@@ -1,4 +1,10 @@
-import { build, emptyDir } from "https://deno.land/x/dnt@0.33.0/mod.ts";
+import { build, emptyDir } from "https://deno.land/x/dnt@0.33.1/mod.ts";
+import { JSONC } from 'https://deno.land/x/jsonc_parser@v0.0.1/mod.ts';
+
+const { metadata } = JSONC.parse(Deno.readTextFileSync("./deno.jsonc"));
+console.log(metadata);
+
+const { name, version } = metadata;
 
 await emptyDir("./npm");
 await build({
@@ -14,13 +20,13 @@ await build({
   },
   package: {
     // package.json properties
-    name: "hello-deno",
-    version: Deno.args[0],
+    name,
+    version,
     description: "Hello NPM, yours truly, Deno.",
     license: "MIT",
     repository: {
       type: "git",
-      url: "https://github.com/pixeleet/hello_deno",
+      url: "https://github.com/type-driven/hello_deno",
     },
   },
   scriptModule: "cjs",
