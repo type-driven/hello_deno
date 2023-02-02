@@ -1,5 +1,5 @@
 import { build, emptyDir } from "https://deno.land/x/dnt@0.33.1/mod.ts";
-import { JSONC } from 'https://deno.land/x/jsonc_parser@v0.0.1/mod.ts';
+import { JSONC } from "https://deno.land/x/jsonc_parser@v0.0.1/mod.ts";
 
 const { metadata } = JSONC.parse(Deno.readTextFileSync("./deno.jsonc"));
 console.log(metadata);

@@ -1,5 +1,5 @@
 // need to fetch the WASM that `deno vendor` ignores
-const out = "./vendor/deno.land/x/dnt@0.33.0/lib/pkg/dnt_wasm_bg.wasm";
+const out = "./vendor/deno.land/x/dnt@0.33.1/lib/pkg/dnt_wasm_bg.wasm";
 let shouldDownload = true;
 
 try {
