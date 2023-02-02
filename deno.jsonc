@@ -15,7 +15,7 @@
   "imports": {
     "ramda": "https://deno.land/x/ramda@v0.27.2/mod.ts",
     "ramda/": "https://deno.land/x/ramda@v0.27.2/",
-    "std/": "https://deno.land/std@0.174.0/"
+    "std/": "https://deno.land/std@0.176.0/"
   },
   "importMap": "./vendor/import_map.json"
 }

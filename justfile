@@ -66,7 +66,7 @@ test: _clean
 
 # Check for updates
 update: && deps
-	just _udd "{{all_files}} import_map.json"
+	just _udd "{{all_files}} deno.jsonc"
 
 #
 # Helper tasks
@@ -121,7 +121,7 @@ _reload:
 
 # Update dependencies to latest versions.
 _udd paths:
-	deno run {{dev_flags}} https://deno.land/x/udd@0.7.3/main.ts {{paths}}
+	deno run {{dev_flags}} https://deno.land/x/udd@0.8.2/main.ts {{paths}}
 
 # Vendor the dependencies
 _vendor:
