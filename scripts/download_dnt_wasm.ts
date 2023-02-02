@@ -1,5 +1,13 @@
 // need to fetch the WASM that `deno vendor` ignores
-const out = "./vendor/deno.land/x/dnt@0.33.1/lib/pkg/dnt_wasm_bg.wasm";
+const dntDir = Array
+  .from(Deno.readDirSync("./vendor/deno.land/x"))
+  .find((f) => f.name.startsWith("dnt@"))?.name;
+
+if (!dntDir) {
+  throw new Error("Could not find dnt in vendor directory.");
+}
+
+const out = `./vendor/deno.land/x/${dntDir}/lib/pkg/dnt_wasm_bg.wasm`;
 let shouldDownload = true;
 
 try {
