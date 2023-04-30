@@ -6,10 +6,10 @@
 dev_flags := "--unstable --allow-all"
 
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--config ./deno.jsonc --lock ./lock.json --no-remote --import-map=./vendor/import_map.json"
+prod_flags := "--no-remote --import-map=./vendor/import_map.json"
 
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
-dep_flags := "--config ./deno.jsonc --lock ./lock.json"
+dep_flags := ""
 
 # Examples docs and such
 doc_files := "examples/*.ts **/*.md"
@@ -36,7 +36,7 @@ all: chores && build
 
 # Run the benchmark(s)
 bench:
-	deno bench {{dev_flags}} {{dep_flags}}
+	deno bench {{dev_flags}} {{prod_flags}}
 
 # build binary, bundle, node module
 build: _build-bin _build-lib _build-npm
@@ -62,11 +62,11 @@ run $ENTRYPOINT="main.ts" $ARGS="":
 
 # run tests with coverage and doc-tests
 test: _clean
-	deno test {{dev_flags}} {{dep_flags}} --doc --coverage=cov_profile {{test_files}}
+	deno test --no-check {{dev_flags}} {{prod_flags}} --doc --coverage=cov_profile {{test_files}}
 
 # Check for updates
 update: && deps
-	just _udd "{{all_files}} deno.jsonc"
+	just _udd "{{all_files}} deno.json"
 
 #
 # Helper tasks
@@ -121,7 +121,7 @@ _reload:
 
 # Update dependencies to latest versions.
 _udd paths:
-	deno run {{dev_flags}} https://deno.land/x/udd@0.8.2/main.ts {{paths}}
+	deno run {{dev_flags}} https://raw.githubusercontent.com/type-driven/deno-udd/fix/bare-npm/mod.ts {{paths}}
 
 # Vendor the dependencies
 _vendor:

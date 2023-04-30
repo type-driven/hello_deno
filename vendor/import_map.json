@@ -1,7 +1,14 @@
 {
   "imports": {
-    "ramda": "./deno.land/x/ramda@v0.27.2/mod.ts",
+    "https://deno.land/x/ramda/mod.ts": "./deno.land/x/ramda@v0.27.2/mod.ts",
     "std/testing/asserts.ts": "./deno.land/std@0.182.0/testing/asserts.ts",
+    "https://deno.land/x/dnt/mod.ts": "./deno.land/x/dnt@0.34.0/mod.ts",
+    "https://deno.land/x/fun/decoder.ts": "./deno.land/x/fun@v.2.0.0-alpha.11/decoder.ts",
     "https://deno.land/": "./deno.land/"
+  },
+  "scopes": {
+    "./deno.land/": {
+      "std/flags/mod.ts": "./deno.land/std@0.182.0/flags/mod.ts"
+    }
   }
 }

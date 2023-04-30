@@ -60,7 +60,7 @@ Note: Windows users, please use `git-bash` to interact with `just`
 - `bin/` [`deno compile` output](bin/hello_deno)
   - `build_npm_package.ts`
     [transforming for `npm` with `dnt`](./build_npm_package.ts)
-  - `deno.jsonc` [using `deno.jsonc` config file](./deno.jsonc)
+  - `deno.json` [using `deno.json` config file](./deno.json)
   - `import_map.json` [using `import_map.json`](./import_map.json)
   - `lock.json` [lockfile](./lock.json)
   - `vendor` [Vendored dependencies](vendor)
@@ -85,7 +85,7 @@ Note: Windows users, please use `git-bash` to interact with `just`
 #### `dev_flags`
 
 ```make
-dev_flags = --unstable -A -c ./deno.jsonc
+dev_flags = --unstable -A -c ./deno.json
 ```
 
 Default run flags:
