@@ -39,25 +39,20 @@ const config = pipe(
 );
 console.log("Config", config);
 
-const _run = async (cmd: string[]) => {
+const _run = async ([command, ...args]: string[]) => {
   console.log(`Running: ${cmd.join(" ")}`);
   if (!config.dry_run) {
-    const p = Deno.run({
-      cmd,
+    const p = new Deno.Command(command, {
+      args,
       stderr: "piped",
       stdout: "piped",
     });
     if (config.verbose) {
-      const [status, stdout, stderr] = await Promise.all([
-        p.status(),
-        p.output(),
-        p.stderrOutput(),
-      ]);
-      console.log("Status", status);
-      console.log("Stdout", stdout);
-      console.log("Stderr", stderr);
+      const { code, stdout, stderr } = await p.output();
+      console.log("Status", code);
+      console.log("Stdout", new TextDecoder().decode(stdout));
+      console.log("Stderr", new TextDecoder().decode(stderr));
     }
-    p.close();
   }
 };
 
