@@ -1,5 +1,5 @@
-import { toUpper } from "https://deno.land/x/ramda/mod.ts";
+import { toUpperCase } from "https://deno.land/x/fun/string.ts";
 
 export function hello_deno() {
-  return toUpper("Hello deno!");
+  return toUpperCase("Hello deno!");
 }

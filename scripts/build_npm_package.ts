@@ -1,9 +1,7 @@
 import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
+import _deno_json from "../deno.json" assert { type: "json" };
 
-const { metadata } = JSON.parse(Deno.readTextFileSync("./deno.json"));
-console.log(metadata);
-
-const { name, version } = metadata;
+const { name, version } = _deno_json.metadata;
 
 await emptyDir("./npm");
 await build({
@@ -36,5 +34,5 @@ Deno.copyFileSync("LICENSE", "npm/LICENSE");
 Deno.copyFileSync("README.md", "npm/README.md");
 Deno.writeTextFileSync(
   "npm/.npmrc",
-  "//registry.npmjs.org/:_authToken=${NPM_TOKEN}",
+  "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
 );
