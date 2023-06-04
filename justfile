@@ -50,7 +50,7 @@ cd: build && _publish-npm
 chores: update _lint _format test bench
 
 # Essentially npm install --lock
-deps: _reload _lock _vendor _cache
+deps: _reload _vendor _cache
 
 # Profiling
 debug:
@@ -116,7 +116,7 @@ _publish-npm:
 	cd npm && npm publish
 
 # Reload cache
-_reload:
+_reload: _lock
 	deno cache -r {{dep_flags}} {{all_files}}
 
 # Update dependencies to latest versions.
