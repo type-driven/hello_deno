@@ -2,12 +2,12 @@
 
 import type { EntryPoint, ShimOptions } from "../mod.ts";
 import { TransformOutput } from "../transform.ts";
-import { PackageJsonObject } from "./types.ts";
+import { PackageJson } from "./types.ts";
 
 export interface GetPackageJsonOptions {
   transformOutput: TransformOutput;
   entryPoints: EntryPoint[];
-  package: PackageJsonObject;
+  package: PackageJson;
   includeEsModule: boolean | undefined;
   includeScriptModule: boolean | undefined;
   includeDeclarations: boolean | undefined;
@@ -64,9 +64,9 @@ export function getPackageJson({
   };
   const testDevDependencies = testEnabled
     ? ({
-      ...(!Object.keys(dependencies).includes("chalk")
+      ...(!Object.keys(dependencies).includes("picocolors")
         ? {
-          "chalk": "^4.1.2",
+          "picocolors": "^1.0.0",
         }
         : {}),
       // add dependencies from transform
