@@ -123,6 +123,9 @@ _reload: _lock
 _udd paths:
 	deno run {{dev_flags}} https://raw.githubusercontent.com/type-driven/deno-udd/fix/bare-npm/mod.ts {{paths}}
 
+_setup-pre-commit:
+	echo '#!/bin/sh\njust ci' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
 # Vendor the dependencies
 _vendor:
 	rm -rf ./vendor 
