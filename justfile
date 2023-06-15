@@ -66,7 +66,8 @@ test: _clean
 
 # Check for updates
 update: && deps
-	just _udd "{{all_files}} deno.json"
+	sed -i '' 's/\.\/vendor\/import_map\.json/\.\/import_map\.json/g' deno.json
+	just _udd "{{all_files}} import_map.json deno.json"
 
 #
 # Helper tasks
