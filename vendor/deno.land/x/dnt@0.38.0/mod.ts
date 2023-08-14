@@ -169,6 +169,8 @@ export interface BuildOptions {
   filterDiagnostic?: (diagnostic: ts.Diagnostic) => boolean;
   /** Action to do after emitting and before running tests. */
   postBuild?: () => void | Promise<void>;
+  /** Custom Wasm URL for the internal Wasm module used by dnt. */
+  internalWasmUrl?: string;
 }
 
 /** Builds the specified Deno module to an npm package using the TypeScript compiler. */
@@ -356,7 +358,11 @@ export async function build(options: BuildOptions): Promise<void> {
       outDir: esmOutDir,
     });
     program = project.createProgram();
-    emit();
+    emit({
+      transformers: {
+        before: [compilerTransforms.transformImportMeta],
+      },
+    });
     writeFile(
       path.join(esmOutDir, "package.json"),
       `{\n  "type": "module"\n}\n`,
@@ -516,6 +522,7 @@ export async function build(options: BuildOptions): Promise<void> {
       testFiles: transformOutput.test.files,
       includeScriptModule: options.scriptModule !== false,
       includeEsModule: options.esModule !== false,
+      declaration: options.declaration!,
     });
     writeFile(
       path.join(options.outDir, ".npmignore"),
@@ -539,6 +546,7 @@ export async function build(options: BuildOptions): Promise<void> {
       mappings: options.mappings,
       target: scriptTarget,
       importMap: options.importMap,
+      internalWasmUrl: options.internalWasmUrl,
     });
   }
 
