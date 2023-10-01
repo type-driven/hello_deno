@@ -1,10 +1,10 @@
 {
   "imports": {
-    "https://deno.land/x/fun/string.ts": "./deno.land/x/fun@v.2.0.0-alpha.11/string.ts",
+    "https://deno.land/x/fun/string.ts": "./deno.land/x/fun@v2.0.0-alpha.15/string.ts",
     "std/testing/asserts.ts": "./deno.land/std@0.182.0/testing/asserts.ts",
-    "https://deno.land/x/dnt/mod.ts": "./deno.land/x/dnt@0.38.0/mod.ts",
+    "https://deno.land/x/dnt/mod.ts": "./deno.land/x/dnt@0.38.1/mod.ts",
     "https://deno.land/x/semver/mod.ts": "./deno.land/x/semver@v1.4.1/mod.ts",
-    "https://deno.land/x/fun/decoder.ts": "./deno.land/x/fun@v.2.0.0-alpha.11/decoder.ts",
+    "https://deno.land/x/fun/decoder.ts": "./deno.land/x/fun@v2.0.0-alpha.15/decoder.ts",
     "https://deno.land/": "./deno.land/"
   },
   "scopes": {
