@@ -4,15 +4,12 @@
     "name": "hello_deno",
     "version": "1.0.0"
   },
-  "lint": {
-    "files": {
-      "include": ["**/*"],
-      "exclude": ["vendor/*"]
-    }
-  },
+  "include": ["**/*"],
+  "exclude": ["vendor/*"],
+  "vendor": true,
   "lock": true,
   "imports": {
-    "std/": "https://deno.land/std@0.182.0/"
-  },
-  "importMap": "./vendor/import_map.json"
+    "std/": "https://deno.land/std@0.182.0/",
+    "fun/": "https://deno.land/x/fun/"
+  }
 }

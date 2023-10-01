@@ -6,7 +6,7 @@
 dev_flags := "--unstable --allow-all"
 
 # Should write strict --allow-xxx flags here for your prod build
-prod_flags := "--no-remote --import-map=./vendor/import_map.json"
+prod_flags := ""
 
 # Set config path, use locked dependencies, override import map (config used vendored import-map)
 dep_flags := ""
@@ -50,7 +50,7 @@ cd: build && _publish-npm
 chores: update _lint _format test bench
 
 # Essentially npm install --lock
-deps: _reload _vendor _cache
+deps: _reload _cache
 
 # Profiling
 debug:
@@ -66,8 +66,7 @@ test: _clean
 
 # Check for updates
 update: && deps
-	sed -i '' 's/\.\/vendor\/import_map\.json/\.\/import_map\.json/g' deno.json
-	just _udd "{{all_files}} import_map.json deno.json"
+	just _udd "{{all_files}} deno.json"
 
 #
 # Helper tasks
@@ -122,12 +121,7 @@ _reload: _lock
 
 # Update dependencies to latest versions.
 _udd paths:
-	deno run {{dev_flags}} https://raw.githubusercontent.com/type-driven/deno-udd/fix/bare-npm/mod.ts {{paths}}
+	deno run {{dev_flags}} https://deno.land/x/udd/mod.ts {{paths}}
 
 _setup-pre-commit:
 	echo '#!/bin/sh\njust ci' > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
-
-# Vendor the dependencies
-_vendor:
-	rm -rf ./vendor 
-	deno vendor {{dep_flags}} --force {{all_files}} --output ./vendor
