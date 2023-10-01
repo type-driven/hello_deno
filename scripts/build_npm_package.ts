@@ -7,7 +7,7 @@ await emptyDir("./npm");
 await build({
   entryPoints: ["./mod.ts"],
   outDir: "./npm",
-  importMap: "./vendor/import_map.json",
+  importMap: "./deno.json",
   typeCheck: false,
   skipSourceOutput: true,
   test: true,
