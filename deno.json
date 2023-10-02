@@ -2,7 +2,7 @@
   "metadata": {
     "minDenoVersion": "1.37",
     "name": "hello_deno",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "include": ["**/*"],
   "exclude": ["vendor/*"],
