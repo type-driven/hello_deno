@@ -116,8 +116,8 @@ _publish-npm:
 	cd npm && npm publish
 
 # Reload cache
-_reload: _lock
-	deno cache -r {{dep_flags}} {{all_files}}
+_reload:
+	just _lock && deno cache -r {{dep_flags}} {{all_files}}
 
 # Update dependencies to latest versions.
 _udd paths:
