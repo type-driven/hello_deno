@@ -1,15 +1,13 @@
 {
-  "metadata": {
-    "minDenoVersion": "1.37",
-    "name": "hello_deno",
-    "version": "1.1.1"
-  },
+  "minDenoVersion": "1.41",
+  "name": "hello_deno",
+  "version": "1.2.0"
   "include": ["**/*"],
   "exclude": ["vendor/*"],
   "vendor": true,
   "lock": true,
   "imports": {
-    "std/": "https://deno.land/std@0.182.0/",
-    "fun/": "https://deno.land/x/fun/"
+    "effect": "npm:effect",
+    "std/": "https://deno.land/std@0.217.0/"
   }
 }
