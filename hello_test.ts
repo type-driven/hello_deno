@@ -1,4 +1,4 @@
-import { assertStrictEquals } from "https://deno.land/std/assert/mod.ts";
+import { assertStrictEquals } from "jsr:@std/assert";
 import { hello_deno } from "./mod.ts";
 
 Deno.test("Be nice, say hello!", () => {

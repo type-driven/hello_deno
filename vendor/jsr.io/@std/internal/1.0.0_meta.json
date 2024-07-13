@@ -1,0 +1,251 @@
+{
+  "manifest": {
+    "/diff_test.ts": {
+      "size": 5079,
+      "checksum": "sha256-72755b3226f524add0e7079b80e43e71aadf00eb2ad45a06b5456f4a8d900461"
+    },
+    "/format_test.ts": {
+      "size": 3312,
+      "checksum": "sha256-6e6bf46b65b12602b8bb404a90948bd746969533ef71cbaa5143e70d09a6a645"
+    },
+    "/format.ts": {
+      "size": 1137,
+      "checksum": "sha256-324c672198681fc1f61388e3bcaae63d623678bc996b79427b0046e1d5e8b544"
+    },
+    "/deno.json": {
+      "size": 290,
+      "checksum": "sha256-bd852ceeb6d4a12412efc8ad165a987ae5795a443316ee9d1532e0f83e8d7276"
+    },
+    "/styles_test.ts": {
+      "size": 2189,
+      "checksum": "sha256-e08b10c4dcb6d182be3f66bfa806150e010d6d3183f034a00f4983761799ca9c"
+    },
+    "/build_message_test.ts": {
+      "size": 1462,
+      "checksum": "sha256-cc666fe978e8392c7b7e892ee516a557030380b50376dd844d45be5b617810d0"
+    },
+    "/styles.ts": {
+      "size": 5415,
+      "checksum": "sha256-37b9a863c4e85fc701795a0c982eee9d7cb4660dade9823a632207d21b7a66a4"
+    },
+    "/diff_str.ts": {
+      "size": 5370,
+      "checksum": "sha256-018725050f280d66b5f6ae1f0d024c318ee205726076c7def91776ca14e4e428"
+    },
+    "/types.ts": {
+      "size": 489,
+      "checksum": "sha256-606fb6fe832f6114779569659a61f02a2fa2f9b75cf7e7ee1ad4cfb176b1caf9"
+    },
+    "/diff.ts": {
+      "size": 8245,
+      "checksum": "sha256-3192d433fe4b84244d1fd09f7249cdd1d9c77efce504d36222e646eeb11631ba"
+    },
+    "/diff_str_test.ts": {
+      "size": 7562,
+      "checksum": "sha256-f7040b31426d5d5f981ee4a4a11057391ef86430722441f5669b02f64af0422d"
+    },
+    "/mod.ts": {
+      "size": 1128,
+      "checksum": "sha256-924acbf4b6012a7ab679e51a8330cb09559850bc2abe0c5fe9cc9a30b7f54227"
+    },
+    "/build_message.ts": {
+      "size": 3624,
+      "checksum": "sha256-a1b181887c29c6a8873a3c9a9df012aef2490bd35ee21b80b03ea6b5b45ebbf7"
+    }
+  },
+  "moduleGraph2": {
+    "/mod.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./build_message.ts",
+          "specifierRange": [
+            [
+              38,
+              14
+            ],
+            [
+              38,
+              34
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./diff.ts",
+          "specifierRange": [
+            [
+              39,
+              14
+            ],
+            [
+              39,
+              25
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./diff_str.ts",
+          "specifierRange": [
+            [
+              40,
+              14
+            ],
+            [
+              40,
+              29
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./format.ts",
+          "specifierRange": [
+            [
+              41,
+              14
+            ],
+            [
+              41,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./styles.ts",
+          "specifierRange": [
+            [
+              42,
+              14
+            ],
+            [
+              42,
+              27
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "export",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              43,
+              14
+            ],
+            [
+              43,
+              26
+            ]
+          ]
+        }
+      ]
+    },
+    "/build_message.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./styles.ts",
+          "specifierRange": [
+            [
+              3,
+              62
+            ],
+            [
+              3,
+              75
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              4,
+              42
+            ],
+            [
+              4,
+              54
+            ]
+          ]
+        }
+      ]
+    },
+    "/format.ts": {},
+    "/diff_str.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              1,
+              32
+            ],
+            [
+              1,
+              44
+            ]
+          ]
+        },
+        {
+          "type": "static",
+          "kind": "import",
+          "specifier": "./diff.ts",
+          "specifierRange": [
+            [
+              2,
+              21
+            ],
+            [
+              2,
+              32
+            ]
+          ]
+        }
+      ]
+    },
+    "/diff.ts": {
+      "dependencies": [
+        {
+          "type": "static",
+          "kind": "importType",
+          "specifier": "./types.ts",
+          "specifierRange": [
+            [
+              3,
+              42
+            ],
+            [
+              3,
+              54
+            ]
+          ]
+        }
+      ]
+    },
+    "/styles.ts": {},
+    "/types.ts": {}
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./build-message": "./build_message.ts",
+    "./diff-str": "./diff_str.ts",
+    "./diff": "./diff.ts",
+    "./format": "./format.ts",
+    "./styles": "./styles.ts",
+    "./types": "./types.ts"
+  }
+}
