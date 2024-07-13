@@ -1,13 +1,24 @@
 {
-  "minDenoVersion": "1.41",
-  "name": "hello_deno",
-  "version": "1.2.0"
-  "include": ["**/*"],
-  "exclude": ["vendor/*"],
+  "minDenoVersion": "1.44",
+  "name": "@tdd/hello-deno",
+  "version": "2.0.0-rc-0",
+  "tasks": {
+    "install": "deno cache **/*.ts"
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "vendor/*"
+  ],
   "vendor": true,
   "lock": true,
   "imports": {
-    "effect": "npm:effect",
+    "effect": "npm:effect@3.5.0",
     "std/": "https://deno.land/std@0.217.0/"
+  },
+  "exports": {
+    ".": "./mod.ts",
+    "./hello": "./hello.ts"
   }
 }
