@@ -34,6 +34,6 @@ jobs:
         with:
           deno-version: v1.44.4
 
-      - name: Dry Run Release to JSR
+      - name: Release to JSR
         run: |
-          deno publish --dry-run
+          deno publish

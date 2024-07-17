@@ -32,6 +32,11 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
+      - name: Lint
+        run: deno lint
+
+      - name: Test
+        run: deno test
 
       - name: Dry Run Release to JSR
         run: |
