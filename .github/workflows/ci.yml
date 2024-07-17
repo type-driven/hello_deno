@@ -33,13 +33,6 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Setup Just
-        uses: extractions/setup-just@v1
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-
-      - name: Check & Build
-        run: just ci
+      - name: Dry Run Release to JSR
+        run: |
+          deno publish --dry-run
