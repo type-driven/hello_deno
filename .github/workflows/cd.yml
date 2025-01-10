@@ -36,4 +36,4 @@ jobs:
 
       - name: Release to JSR
         run: |
-          deno publish
+          deno publish --token ${{ secrets.JSR_TOKEN }}
