@@ -11,7 +11,7 @@ name: Continous Delivery
 on:
   push:
     tags:
-      - v1*
+      - v*
 
 permissions:
   contents: read
