@@ -14,7 +14,8 @@ on:
       - v*
 
 permissions:
-  contents: read
+      contents: read
+      id-token: write # The OIDC ID token is used for authentication with JSR.
 
 jobs:
   cd:
